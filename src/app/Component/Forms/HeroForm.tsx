@@ -28,16 +28,17 @@ export default function HeroForm() {
     return (
         <form
             onSubmit={handleSubmit}
-            className="inline-flex items-center shadow-lg shadow-gray-500/20">
-            <span className="bg-white py-4 pl-4 pr-2">
+            className="inline-flex justify-center items-center shadow-lg shadow-gray-500/20 flex-col md:flex-row mx-auto mt-4 ml-20">
+            <span className="bg-white py-4 pl-4 pr-2 flex-grow w-full md:w-auto text-center border shadow-gray-400">
                 LinkList.to
             </span>
             <input
-                type="text" className="py-4"
+                type="text"
+                className="py-4 flex-grow w-full md:w-auto text-center"
                 placeholder="username" />
             <button
                 type="submit"
-                className="bg-blue-500 text-white py-4 px-6 hover:bg-blue-700">
+                className="bg-blue-500 text-white py-4 px-6 hover:bg-blue-700 w-full mt-4 md:mt-0 md:w-auto flex justify-center">
                 Join for free
             </button>
         </form>

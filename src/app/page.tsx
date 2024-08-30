@@ -6,7 +6,7 @@ export default function Home() {
     <main>
 
       <section className="pt-32">
-        <div className="max-w-md mb-6">
+        <div className="max-w-md mb-6 ml-20">
           <h1 className="text-4xl font-bold">
             Your one link
             <br /> for everything
