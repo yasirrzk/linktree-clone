@@ -1,22 +1,27 @@
-"use server";
+'use server';
+import { authOptions } from "@/authOptions";
 import { page } from "@/models/page";
 import mongoose from "mongoose";
-import { redirect } from "next/navigation";
-export default async function grabUsername(formData: any) {
-  const username = formData.get("username");
-  mongoose.connect("process.env.MONGO_URI");
-  const existingPageDoc = await page.findOne({uri:username});
+import { getServerSession } from "next-auth";
 
-  if(existingPageDoc) {
-   return redirect('/account?usernameTaken=1')
-  } else {
-   await page.create({uri:username});
-   return redirect('/account/'+username)
+export default async function grabUsername(formData: any) {
+  const username = formData.get('username');
+
+  const mongoUri = process.env.MONGO_URI;
+  if (!mongoUri) {
+    throw new Error("MONGO_URI is not defined in environment variables");
   }
-//   try {
-//     await page.create({ uri: username });
-//     return redirect("/account/" + username);
-//   } catch (e) {
-//     return redirect("/account?usernameTaken=1");
-//   }
+
+  await mongoose.connect(mongoUri);
+
+  const existingPageDoc = await page.findOne({ uri: username });
+  if (existingPageDoc) {
+    return false;
+  } else {
+    const session = await getServerSession(authOptions);
+    return await page.create({
+      uri: username,
+      owner: session?.user?.email,
+    });
+  }
 }
