@@ -5,6 +5,8 @@ import { redirect } from "next/navigation";
 import UsernameForm from "../Component/Forms/UsernameForm";
 import mongoose from "mongoose";
 import { page } from "@/models/page";
+import PageSettingsForm from "../Component/Forms/PageSettingForm";
+import PageButtonsForm from "../Component/Forms/PageButtonForm";
 
 
 export default async function Accountpage({ searchParams}: { searchParams: { [key: string]: string | string[] } }) {
@@ -29,7 +31,7 @@ export default async function Accountpage({ searchParams}: { searchParams: { [ke
       <>
         <PageSettingsForm page={leanPage} user={session.user} />
         <PageButtonsForm page={leanPage} user={session.user} />
-        <PageLinksForm page={leanPage} user={session.user} />
+        <P page={leanPage} user={session.user} />
       </>
     );
   }
