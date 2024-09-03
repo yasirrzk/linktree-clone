@@ -24,7 +24,7 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import toast from "react-hot-toast";
 
 export const allButtons = [
@@ -60,9 +60,10 @@ function upperFirst(str: string) {
 }
 
 interface Button {
+  id : string
   key: string;
   label: string;
-  icon: any;
+  icon: any
   placeholder?: string;
 }
 
@@ -72,7 +73,8 @@ interface PageButtonsFormProps {
 }
 
 export default function PageButtonsForm({ user, page }: PageButtonsFormProps) {
-  const pageSavedButtonsKeys = Object.keys(page.buttons);
+  const pageSavedButtonsKeys = Object.keys(page.buttons || {});
+  
   const pageSavedButtonsInfo = pageSavedButtonsKeys
     .map((k) => allButtons.find((b) => b.key === k))
     .filter(Boolean) as Button[];
@@ -97,7 +99,12 @@ export default function PageButtonsForm({ user, page }: PageButtonsFormProps) {
 
   const availableButtons = allButtons.filter(
     (b1) => !activeButtons.find((b2) => b1.key === b2?.key)
-  );
+  ).map(b => ({
+    ...b,
+    id: b.key 
+  }));
+
+  
 
   return (
     <SectionBox>

@@ -18,9 +18,12 @@ interface PageSettingsFormProps {
     displayName: string;
     location: string;
     bio: string;
+    avatar: string
   };
-  user: {
-    image: string;
+  user :{
+    name? : string | null,
+    email? : string | null,
+    image? : string | null
   };
 }
 
@@ -106,9 +109,11 @@ export default function PageSettingsForm({ page, user }: PageSettingsFormProps) 
               <div className="overflow-hidden h-full rounded-full border-4 border-white shadow shadow-black/50">
                 <Image
                   className="w-full h-full object-cover"
-                  src={avatar}
+                  src={avatar || "/default-avatar.png"}
                   alt={'avatar'}
-                  width={128} height={128} />
+                  width={128} height={128}
+                  unoptimized
+                  />
               </div>
               <label
                 htmlFor="avatarIn"
@@ -116,7 +121,7 @@ export default function PageSettingsForm({ page, user }: PageSettingsFormProps) 
                 <FontAwesomeIcon size={'xl'} icon={faCloudArrowUp} />
               </label>
               <input onChange={handleAvatarImageChange} id="avatarIn" type="file" className="hidden" />
-              <input type="hidden" name="avatar" value={avatar} />
+              <input type="hidden" name="avatar" value={avatar || ''} />
             </div>
           </div>
           <div className="p-0">

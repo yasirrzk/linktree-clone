@@ -12,13 +12,13 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { User } from "next-auth";
 import Image from "next/image";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { ReactSortable } from "react-sortablejs";
 
 interface Link {
+  id : string;  
   key: string;
   title: string;
   subtitle: string;
@@ -30,19 +30,33 @@ interface Page {
   links: Link[];
 }
 
+interface User {
+    id?: string; 
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+}
+
+
 export default function PageLinksForm({
-  page,
-  user,
+  page
 }: {
   page: Page;
   user: User;
 }) {
   const [links, setLinks] = useState<Link[]>(page.links || []);
 
+  async function save() {
+    const linkStrings = links.map(link => link.url);
+    await savePageLinks(linkStrings);
+    toast.success('Saved!');
+  }
+
   function addNewLink() {
     setLinks((prev: Link[]) => [
       ...prev,
       {
+        id: "",
         key: Date.now().toString(),
         title: "",
         subtitle: "",
@@ -92,7 +106,7 @@ export default function PageLinksForm({
   }
   return (
     <SectionBox>
-      <form action={save}>
+      <form onSubmit={save}>
         <h2 className="text-2xl font-bold mb-4">Links</h2>
         <button
           onClick={addNewLink}
