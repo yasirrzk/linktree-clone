@@ -1,14 +1,17 @@
-import { useFormStatus } from 'react-dom';
-import { ReactNode } from 'react';
+import { useFormStatus } from "react-dom";
+import { ReactNode } from "react";
 
 interface SubmitButtonProps {
   children: ReactNode;
   className?: string;
 }
 
-export default function SubmitButton({ children, className = '' }: SubmitButtonProps) {
+export default function SubmitButton({
+  children,
+  className = "",
+}: SubmitButtonProps) {
   const { pending } = useFormStatus();
-  
+
   return (
     <button
       type="submit"

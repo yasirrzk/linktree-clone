@@ -4,7 +4,7 @@ import { authOptions } from "../../authOptions";
 import { redirect } from "next/navigation";
 import UsernameForm from "../Component/Forms/UsernameForm";
 import mongoose from "mongoose";
-import { page } from "@/models/page";
+import { Page } from "@/models/page";
 import PageSettingsForm from "../Component/Forms/PageSettingForm";
 import PageButtonsForm from "../Component/Forms/PageButtonForm";
 import PageLinksForm from "../Component/Forms/PageLinkForm";
@@ -23,11 +23,11 @@ export default async function Accountpage({ searchParams}: { searchParams: { [ke
   }
 
   await mongoose.connect(mongoUri);
-  const  pageDocument = await page.findOne({owner: session?.user?.email});
+  const  pageDocument = await Page.findOne({owner: session?.user?.email});
 
 const leanPage = pageDocument ? pageDocument.toObject() : { _id: 'default-id', /* other default properties */ };
   leanPage._id = leanPage._id.toString();
-  if (page) {
+  if (Page) {
     return (
       <>
         <PageSettingsForm page={leanPage} user={session.user} />

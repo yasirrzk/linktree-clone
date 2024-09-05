@@ -40,14 +40,14 @@ export default function Header() {
             </Link>
           </div>
           {!!session && (
-            <div className="flex flex-col md:flex-row md:gap-4 mt-4 md:mt-0">
+            <div className="flex items-center flex-col md:flex-row md:gap-4 mt-4 md:mt-0">
               <Link href="/account">Hello, {session?.user?.name}</Link>
               <LogoutButton />
             </div>
           )}
           {!session && (
             <div className="flex flex-col md:flex-row md:gap-4 mt-4 md:mt-0">
-              <Link href="/login" className="hover:text-slate-800 hover:underline">
+              <Link href="/Login" className="hover:text-slate-800 hover:underline">
                 Sign In
               </Link>
               <Link href="/register" className="hover:text-slate-800 hover:underline">

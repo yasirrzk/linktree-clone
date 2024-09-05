@@ -60,10 +60,10 @@ function upperFirst(str: string) {
 }
 
 interface Button {
-  id : string
+  id: string;
   key: string;
   label: string;
-  icon: any
+  icon: any;
   placeholder?: string;
 }
 
@@ -74,7 +74,7 @@ interface PageButtonsFormProps {
 
 export default function PageButtonsForm({ user, page }: PageButtonsFormProps) {
   const pageSavedButtonsKeys = Object.keys(page.buttons || {});
-  
+
   const pageSavedButtonsInfo = pageSavedButtonsKeys
     .map((k) => allButtons.find((b) => b.key === k))
     .filter(Boolean) as Button[];
@@ -97,20 +97,18 @@ export default function PageButtonsForm({ user, page }: PageButtonsFormProps) {
     );
   }
 
-  const availableButtons = allButtons.filter(
-    (b1) => !activeButtons.find((b2) => b1.key === b2?.key)
-  ).map(b => ({
-    ...b,
-    id: b.key 
-  }));
-
-  
+  const availableButtons = allButtons
+    .filter((b1) => !activeButtons.find((b2) => b1.key === b2?.key))
+    .map((b) => ({
+      ...b,
+      id: b.key,
+    }));
 
   return (
     <SectionBox>
       <form action={saveButtons}>
         <h2 className="text-2xl font-bold mb-4">Buttons</h2>
-        <ReactSortable 
+        <ReactSortable
           handle=".handle"
           list={activeButtons}
           setList={setActiveButtons}
@@ -131,7 +129,7 @@ export default function PageButtonsForm({ user, page }: PageButtonsFormProps) {
                     <input
                       placeholder={b.placeholder}
                       name={b.key}
-                      defaultValue={page.buttons[b.key]}
+                      defaultValue={page?.buttons?.[b.key] || ""} 
                       type="text"
                       style={{ marginBottom: "0" }}
                     />
