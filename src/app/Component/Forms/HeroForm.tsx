@@ -42,7 +42,7 @@ export default function HeroForm({ user = null }: HeroFormProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="inline-flex items-center shadow-lg bg-white shadow-gray-500/20"
+      className="ml-20 inline-flex items-center shadow-lg bg-white shadow-gray-500/20"
     >
       <span className="bg-white py-4 pl-4">linklist.to/</span>
       <input
