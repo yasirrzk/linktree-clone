@@ -1,6 +1,6 @@
 'use server';
 import { authOptions } from "@/authOptions";
-import { page } from "@/models/page";
+import { Page } from "@/models/page";
 import { User } from "@/models/User";
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
@@ -23,7 +23,7 @@ export async function savePageSettings(formData: FormData) {
       }
     }
 
-    await page.updateOne(
+    await Page.updateOne(
       { owner: session.user?.email as string },
       dataToUpdate,
     );
@@ -56,7 +56,7 @@ export async function savePageButtons(formData: FormData) {
     });
 
     const dataToUpdate = { buttons: buttonsValues };
-    await page.updateOne(
+    await Page.updateOne(
       { owner: session.user?.email as string },
       dataToUpdate,
     );
@@ -73,7 +73,7 @@ export async function savePageLinks(links: string[]) {
 
   const session = await getServerSession(authOptions);
   if (session) {
-    await page.updateOne(
+    await Page.updateOne(
       { owner: session.user?.email as string },
       { links },
     );
